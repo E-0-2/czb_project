@@ -124,7 +124,7 @@
         String selectedSeats = resultSet.getString("movie_seat");
 %>
 <h1><a href="MainPage.jsp">CZB</a></h1>
-<h2>회원 정보</h2>
+<h2>예매 정보</h2>
 <table border="1">
   <thead>
   <tr>
@@ -132,8 +132,8 @@
     <th>영화</th>
     <th>지역</th>
     <th>상영관</th>
-    <th>날짜</th>
-    <th>영화 시간</th>
+    <th>상영 날짜</th>
+    <th>상영 시간</th>
     <th>좌석</th>
   </tr>
   </thead>

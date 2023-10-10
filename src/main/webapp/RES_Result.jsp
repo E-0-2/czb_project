@@ -37,7 +37,7 @@
             if (rowsAffected > 0) {
 %>
 <script>
-    location.href = 'RESPay.jsp';
+    location.href = 'PayList.jsp';
 </script>
 <%
 } else {

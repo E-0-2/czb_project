@@ -84,7 +84,7 @@
     </tr>
     <tr>
 
-      <td><input class="input" type="submit" value="내정보 보기"></td>
+      <td><input class="input" type="submit" value="입력"></td>
     </tr>
   </form>
 </table>

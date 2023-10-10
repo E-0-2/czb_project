@@ -6,52 +6,6 @@
 <html lang="en">
 <head>
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #800000;
-            color: #fff;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        /* 폼 요소 스타일 */
-        select, input[type="text"], input[type="password"] {
-            width: 100%;
-            height: 35px;
-            font-size: 18px;
-            padding: 5px;
-            margin: 10px 0;
-            border: 2px solid #ccc;
-            border-radius: 5px;
-        }
-
-        input[type="submit"] {
-            width: 100%;
-            height: 45px;
-            background-color: #800000;
-            color: #fff;
-            font-size: 24px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #cc0000;
-        }
         body {
             background-color: #f4f4f4;
             border-radius: 9px;
@@ -109,23 +63,19 @@
         }
     </style>
     <meta charset="UTF-8">
-    <title>PayPass</title>
+    <title>결세 수단</title>
 </head>
 <body>
 <center><h1><a href="MainPage.jsp">CZB</a></h1></center>
-<center><h2>PayPass</h2></center>
+<center><h2>본인인증</h2></center>
 <table>
-    <form action="RESPay2.jsp" method="post">
+    <form action="CardCheck2.jsp" method="post">
         <tr>
             <td>아이디</td>
             <td><input class="input" type="text" name="userid" placeholder="아이디 입력" required></td>
         </tr>
-        </tr>
         <tr>
-            <td>결제 비밀번호</td>
-            <td><input class="input" type="password" name="paypass" placeholder="비밀번호 4자리 입력" required></td>
-        </tr>
-        <tr>
+
             <td><input class="input" type="submit" value="입력"></td>
         </tr>
     </form>

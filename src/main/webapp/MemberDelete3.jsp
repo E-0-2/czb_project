@@ -8,26 +8,50 @@
   response.setContentType("text/html; charset=UTF-8");
 
   Connection conn = null;
-  PreparedStatement pstmt = null;
+  PreparedStatement pstmt1 = null;
+  PreparedStatement pstmt2 = null;
+  PreparedStatement pstmt3 = null;
+  PreparedStatement pstmt4 = null;
+  PreparedStatement pstmt5 = null;
 
   try {
     conn = JDBConnect.getConnection();
 
     if (conn != null) {
-      String query = "delete from client_tb where userid = ? and userpass = ? and username = ?";
-      pstmt = conn.prepareStatement(query);
+      // 먼저 다른 테이블에서 해당 userid의 레코드를 삭제합니다.
+      String resQuery = "DELETE FROM res_tb WHERE userid = ?";
+      pstmt1 = conn.prepareStatement(resQuery);
+      pstmt1.setString(1, request.getParameter("userid"));
+      int resRowsDeleted = pstmt1.executeUpdate();
 
-      pstmt.setString(1, request.getParameter("userid"));
-      pstmt.setString(2, request.getParameter("userpass"));
-      pstmt.setString(3, request.getParameter("username"));
+      String payPassQuery = "DELETE FROM pay_pass_tb WHERE userid = ?";
+      pstmt2 = conn.prepareStatement(payPassQuery);
+      pstmt2.setString(1, request.getParameter("userid"));
+      int payPassRowsDeleted = pstmt2.executeUpdate();
 
-      int rowsDeleted = pstmt.executeUpdate();
+      String cardQuery = "DELETE FROM card_tb WHERE userid = ?";
+      pstmt3 = conn.prepareStatement(cardQuery);
+      pstmt3.setString(1, request.getParameter("userid"));
+      int cardRowsDeleted = pstmt3.executeUpdate();
 
-      if (rowsDeleted > 0) {
+      String bankQuery = "DELETE FROM bank_tb WHERE userid = ?";
+      pstmt4 = conn.prepareStatement(bankQuery);
+      pstmt4.setString(1, request.getParameter("userid"));
+      int bankRowsDeleted = pstmt4.executeUpdate();
+
+      // 그 후 client_tb 테이블에서 userid, userpass, username에 해당하는 레코드를 삭제합니다.
+      String clientQuery = "DELETE FROM client_tb WHERE userid = ? AND userpass = ? AND username = ?";
+      pstmt5 = conn.prepareStatement(clientQuery);
+      pstmt5.setString(1, request.getParameter("userid"));
+      pstmt5.setString(2, request.getParameter("userpass"));
+      pstmt5.setString(3, request.getParameter("username"));
+      int clientRowsDeleted = pstmt5.executeUpdate();
+
+      if (resRowsDeleted >= 0 && payPassRowsDeleted >= 0 && cardRowsDeleted >= 0 && bankRowsDeleted >= 0 && clientRowsDeleted > 0) {
 %>
 <script>
   alert("회원 정보가 성공적으로 삭제되었습니다.");
-  location.href = 'CSC.jsp';
+  location.href = 'CSC.jsp'; // 삭제 성공 시 이동할 페이지 설정
 </script>
 <%
 } else {
@@ -56,8 +80,20 @@
 <%
   } finally {
     try {
-      if (pstmt != null) {
-        pstmt.close();
+      if (pstmt1 != null) {
+        pstmt1.close();
+      }
+      if (pstmt2 != null) {
+        pstmt2.close();
+      }
+      if (pstmt3 != null) {
+        pstmt3.close();
+      }
+      if (pstmt4 != null) {
+        pstmt4.close();
+      }
+      if (pstmt5 != null) {
+        pstmt5.close();
       }
       if (conn != null) {
         conn.close();

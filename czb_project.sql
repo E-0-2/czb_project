@@ -25,7 +25,7 @@ userid varchar(20) not null,
 movie_title varchar(40) null,
 movie_location1 varchar(30) null,
 movie_location2 varchar(30) null,
-movie_date datetime not null default current_timestamp,
+movie_date date not null default current_timestamp,
 movie_time varchar(6) not null,
 movie_seat varchar(10) not null,
 foreign key (userid) references client_tb (userid)

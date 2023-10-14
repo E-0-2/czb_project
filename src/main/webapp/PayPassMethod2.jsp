@@ -2,22 +2,24 @@
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.PreparedStatement" %>
 <%@ page import="java.sql.SQLException" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
+<%
     request.setCharacterEncoding("UTF-8");
     response.setContentType("text/html; charset=UTF-8");
 
-    Connection conn = JDBConnect.getConnection();
+    Connection conn = null;
     PreparedStatement pstmt = null;
-    String query = "INSERT INTO pay_pass_tb (userid, paypass) VALUES (?,?)";
 
-    if (conn != null) {
-        try {
+    try {
+        // Get a database connection
+        conn = JDBConnect.getConnection();
+
+        if (conn != null) {
+            String query = "INSERT INTO pay_pass_tb (userid, paypass) VALUES (?,?)";
             pstmt = conn.prepareStatement(query);
             pstmt.setString(1, request.getParameter("userid"));
             pstmt.setString(2, request.getParameter("paypass"));
-
 
             int rowsAffected = pstmt.executeUpdate(); // Use executeUpdate() for INSERT
 
@@ -35,10 +37,8 @@
     history.back();
 </script>
 <%
+        }
     }
-
-    pstmt.close();
-    conn.close();
 } catch (SQLException e) {
     e.printStackTrace();
 %>
@@ -47,6 +47,21 @@
     history.back();
 </script>
 <%
+    } finally {
+        // Close the PreparedStatement and Connection in a finally block to ensure they are closed, whether an exception occurs or not.
+        if (pstmt != null) {
+            try {
+                pstmt.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 %>

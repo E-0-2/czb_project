@@ -11,7 +11,7 @@ public class JDBConnect {
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            //String url = "jdbc:mysql://netroot.iptime.org/czb_db?serverTimezone=UTC";
+            //String url = "jdbc:mysql://192.168.0.120/czb_db?serverTimezone=UTC";
            String url= "jdbc:mysql://localhost:3306/czb_db?serverTimezone=UTC";
 
             String id ="root";

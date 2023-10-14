@@ -51,7 +51,7 @@
 %>
 <script>
   alert("회원 정보가 성공적으로 삭제되었습니다.");
-  location.href = 'CSC.jsp'; // 삭제 성공 시 이동할 페이지 설정
+  location.href = 'Login.html'; // 삭제 성공 시 이동할 페이지 설정
 </script>
 <%
 } else {
